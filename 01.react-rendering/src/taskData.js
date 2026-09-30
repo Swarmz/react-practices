@@ -2,7 +2,7 @@ export const TASKS = [
   {
   id: 1,
   title: "Task 1",
-  completed: false
+  completed: true
   },
   {
   id: 2,

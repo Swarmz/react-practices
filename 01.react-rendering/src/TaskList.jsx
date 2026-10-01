@@ -10,6 +10,7 @@ export default function TaskList({tasks, onToggleComplete, onTaskDelete}) {
       <button onClick={() => onTaskDelete(task.id)}>Delete</button>
     </li>
   );
+
   return (
     <ul>{taskItems}</ul>
   );

@@ -17,10 +17,14 @@ function App() {
     );
   }
 
+  function handleDelete(taskId) {
+    setTasks(tasks.filter((task) => task.id !== taskId));
+  }
+
   return (
     <>
     <h1>Tasks</h1>
-    <TaskList tasks={tasks} onToggleComplete={handleToggle}/>
+    <TaskList tasks={tasks} onToggleComplete={handleToggle} onTaskDelete={handleDelete}/>
     </>
   )
 }

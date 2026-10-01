@@ -1,4 +1,4 @@
-export default function TaskList({tasks, onToggleComplete}) {
+export default function TaskList({tasks, onToggleComplete, onTaskDelete}) {
   const taskItems = tasks.map(task =>
     <li key={task.id}>
       {task.title}
@@ -7,6 +7,7 @@ export default function TaskList({tasks, onToggleComplete}) {
         checked={task.completed}
         onChange={() => onToggleComplete(task.id)}
       />
+      <button onClick={() => onTaskDelete(task.id)}>Delete</button>
     </li>
   );
   return (

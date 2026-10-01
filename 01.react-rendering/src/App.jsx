@@ -2,11 +2,10 @@ import { useState } from 'react'
 // import './App.css'
 import TaskList from './TaskList.jsx'
 import TaskForm from './TaskForm.jsx'
-import { TASKS } from './taskData.js'
 
 
 function App() {
-  const [tasks, setTasks] = useState(TASKS);
+  const [tasks, setTasks] = useState([]);
 
   function handleToggle(taskId) {
     setTasks(

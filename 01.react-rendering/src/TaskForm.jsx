@@ -1,4 +1,4 @@
-export default function TaskForm({ onTaskAdd }){
+export default function TaskForm({ onTaskAdd }) {
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -11,7 +11,7 @@ export default function TaskForm({ onTaskAdd }){
 
   return (
     <form onSubmit={handleSubmit}>
-      <input name="title" required pattern=".*\S.*"/>
+      <input name="title" required pattern=".*\S.*" />
       <button type="submit">Add Task</button>
     </form>
   );

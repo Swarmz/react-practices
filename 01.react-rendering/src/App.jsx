@@ -1,19 +1,16 @@
-import { useState } from 'react'
-import './App.css'
-import TaskList from './TaskList.jsx'
-import TaskForm from './TaskForm.jsx'
-
+import { useState } from "react";
+import "./App.css";
+import TaskList from "./TaskList.jsx";
+import TaskForm from "./TaskForm.jsx";
 
 function App() {
   const [tasks, setTasks] = useState([]);
 
   function handleToggle(taskId) {
     setTasks(
-      tasks.map(task =>
-        task.id === taskId
-          ? { ...task, completed: !task.completed }
-          : task
-      )
+      tasks.map((task) =>
+        task.id === taskId ? { ...task, completed: !task.completed } : task,
+      ),
     );
   }
 
@@ -27,19 +24,19 @@ function App() {
 
   return (
     <>
-    <h1>Tasks</h1>
-    {tasks.length > 0 ? (
-      <TaskList 
-        tasks={tasks}
-        onToggleComplete={handleToggle}
-        onTaskDelete={handleDelete}
-      />
-    ) : (
-      <p>No tasks yet.</p>
-    )}
-    <TaskForm onTaskAdd={handleAdd}/>
+      <h1>Tasks</h1>
+      {tasks.length > 0 ? (
+        <TaskList
+          tasks={tasks}
+          onToggleComplete={handleToggle}
+          onTaskDelete={handleDelete}
+        />
+      ) : (
+        <p>No tasks yet.</p>
+      )}
+      <TaskForm onTaskAdd={handleAdd} />
     </>
   );
 }
 
-export default App
+export default App;

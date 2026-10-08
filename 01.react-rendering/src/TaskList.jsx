@@ -1,5 +1,5 @@
-export default function TaskList({tasks, onToggleComplete, onTaskDelete}) {
-  const taskItems = tasks.map(task =>
+export default function TaskList({ tasks, onToggleComplete, onTaskDelete }) {
+  const taskItems = tasks.map((task) => (
     <li className="task" data-completed={task.completed} key={task.id}>
       <div className="task-content">
         <input
@@ -11,9 +11,7 @@ export default function TaskList({tasks, onToggleComplete, onTaskDelete}) {
       </div>
       <button onClick={() => onTaskDelete(task.id)}>Delete</button>
     </li>
-  );
+  ));
 
-  return (
-    <ul className="task-list">{taskItems}</ul>
-  );
+  return <ul className="task-list">{taskItems}</ul>;
 }

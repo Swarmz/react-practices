@@ -1,19 +1,27 @@
+import { useState } from "react";
+
 export default function TaskForm({ onTaskAdd }) {
+  const [title, setTitle] = useState("");
+
   function handleSubmit(event) {
     event.preventDefault();
 
-    const title = event.target.title.value;
-
     onTaskAdd(title);
 
-    event.target.reset();
+    setTitle("");
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <label>
         Task Name:
-        <input name="title" required pattern=".*\S.*" />
+        <input
+          value={title}
+          onChange={(event) => setTitle(event.target.value)}
+          name="title"
+          required
+          pattern=".*\S.*"
+        />
       </label>
       <button type="submit">Add Task</button>
     </form>

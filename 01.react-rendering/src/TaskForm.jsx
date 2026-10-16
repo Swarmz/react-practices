@@ -11,7 +11,10 @@ export default function TaskForm({ onTaskAdd }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input name="title" required pattern=".*\S.*" />
+      <label>
+        Task Name:
+        <input name="title" required pattern=".*\S.*" />
+      </label>
       <button type="submit">Add Task</button>
     </form>
   );

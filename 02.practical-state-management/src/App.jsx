@@ -101,7 +101,12 @@ function AppContent() {
         <p>No tasks yet.</p>
       )}
       <TaskForm onTaskAdd={handleAdd} />
-      <button onClick={() => handleUndo()}>Undo</button>
+      <button
+        onClick={() => handleUndo()}
+        disabled={state.history.length === 0}
+      >
+        Undo
+      </button>
     </div>
   );
 }

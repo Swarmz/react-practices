@@ -1,4 +1,9 @@
+import { useContext } from "react";
+import { ThemeContext } from "./ThemeContext";
+
 export default function TaskList({ tasks, onToggleComplete, onTaskDelete }) {
+  const { isDark } = useContext(ThemeContext);
+
   const taskItems = tasks.map((task) => (
     <li className="task" data-completed={task.completed} key={task.id}>
       <div className="task-content">
@@ -15,5 +20,15 @@ export default function TaskList({ tasks, onToggleComplete, onTaskDelete }) {
     </li>
   ));
 
-  return <ul className="task-list">{taskItems}</ul>;
+  return (
+    <ul
+      className="task-list"
+      style={{
+        backgroundColor: isDark ? "#333333" : "#FFFFFF",
+        color: isDark ? "#FFFFFF" : "#333333",
+      }}
+    >
+      {taskItems}
+    </ul>
+  );
 }

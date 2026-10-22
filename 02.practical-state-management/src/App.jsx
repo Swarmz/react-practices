@@ -1,7 +1,9 @@
-import { useReducer } from "react";
+import { useReducer, useContext } from "react";
 import "./App.css";
 import TaskList from "./TaskList.jsx";
 import TaskForm from "./TaskForm.jsx";
+import { ThemeProvider } from "./ThemeProvider.jsx";
+import { ThemeContext } from "./ThemeContext";
 
 function tasksReducer(state, action) {
   switch (action.type) {
@@ -38,13 +40,19 @@ function tasksReducer(state, action) {
   }
 }
 
-function App() {
+function AppContent() {
+  const { isDark, setIsDark } = useContext(ThemeContext);
+
   const initialState = {
     tasks: [],
     history: [],
   };
 
   const [state, dispatch] = useReducer(tasksReducer, initialState);
+
+  function handleThemeToggle() {
+    setIsDark(!isDark);
+  }
 
   function handleAdd(title) {
     dispatch({
@@ -74,7 +82,14 @@ function App() {
   }
 
   return (
-    <>
+    <div
+      className="background-wrapper"
+      style={{
+        backgroundColor: isDark ? "#222222" : "#F3F4F6",
+        color: isDark ? "#FFFFFF" : "#333333",
+      }}
+    >
+      <button onClick={() => handleThemeToggle()}>Theme</button>
       <h1>Tasks</h1>
       {state.tasks.length > 0 ? (
         <TaskList
@@ -87,6 +102,16 @@ function App() {
       )}
       <TaskForm onTaskAdd={handleAdd} />
       <button onClick={() => handleUndo()}>Undo</button>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <>
+      <ThemeProvider>
+        <AppContent />
+      </ThemeProvider>
     </>
   );
 }

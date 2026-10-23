@@ -7,7 +7,7 @@ import { ThemeContext } from "./ThemeContext";
 
 function tasksReducer(state, action) {
   switch (action.type) {
-    case "added_task":
+    case "add_task":
       return {
         history: [...state.history, state.tasks],
         tasks: [
@@ -15,7 +15,7 @@ function tasksReducer(state, action) {
           { id: Date.now(), title: action.title, completed: false },
         ],
       };
-    case "completed_task":
+    case "toggle_task":
       return {
         history: [...state.history, state.tasks],
         tasks: state.tasks.map((task) =>
@@ -24,7 +24,7 @@ function tasksReducer(state, action) {
             : task,
         ),
       };
-    case "deleted_task":
+    case "delete_task":
       return {
         history: [...state.history, state.tasks],
         tasks: state.tasks.filter((task) => task.id !== action.id),
@@ -56,7 +56,7 @@ function AppContent() {
 
   function handleAdd(title) {
     dispatch({
-      type: "added_task",
+      type: "add_task",
       id: Date.now(),
       title: title,
       completed: false,
@@ -65,14 +65,14 @@ function AppContent() {
 
   function handleToggle(taskId) {
     dispatch({
-      type: "completed_task",
+      type: "toggle_task",
       id: taskId,
     });
   }
 
   function handleDelete(taskId) {
     dispatch({
-      type: "deleted_task",
+      type: "delete_task",
       id: taskId,
     });
   }

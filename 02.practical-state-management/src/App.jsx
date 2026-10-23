@@ -15,7 +15,7 @@ function tasksReducer(state, action) {
           { id: Date.now(), title: action.title, completed: false },
         ],
       };
-    case "toggle_task":
+    case "toggle_task_completion":
       return {
         history: [...state.history, state.tasks],
         tasks: state.tasks.map((task) =>
@@ -65,7 +65,7 @@ function AppContent() {
 
   function handleToggle(taskId) {
     dispatch({
-      type: "toggle_task",
+      type: "toggle_task_completion",
       id: taskId,
     });
   }

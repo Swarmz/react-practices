@@ -12,7 +12,7 @@ function tasksReducer(state, action) {
         history: [...state.history, state.tasks],
         tasks: [
           ...state.tasks,
-          { id: Date.now(), title: action.title, completed: false },
+          { id: action.id, title: action.title, completed: action.completed },
         ],
       };
     case "toggle_completion":

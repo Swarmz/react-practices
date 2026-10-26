@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { ThemeContext } from "./ThemeContext";
 
-export default function TaskList({ tasks, onToggleComplete, onTaskDelete }) {
+export default function TaskList({ tasks, onToggleCompletion, onDelete }) {
   const { isDark } = useContext(ThemeContext);
 
   const taskItems = tasks.map((task) => (
@@ -11,12 +11,12 @@ export default function TaskList({ tasks, onToggleComplete, onTaskDelete }) {
           <input
             type="checkbox"
             checked={task.completed}
-            onChange={() => onToggleComplete(task.id)}
+            onChange={() => onToggleCompletion(task.id)}
           />
           <span>{task.title}</span>
         </label>
       </div>
-      <button onClick={() => onTaskDelete(task.id)}>Delete</button>
+      <button onClick={() => onDelete(task.id)}>Delete</button>
     </li>
   ));
 

@@ -7,7 +7,7 @@ import { ThemeContext } from "./ThemeContext";
 
 function tasksReducer(state, action) {
   switch (action.type) {
-    case "add_task":
+    case "add":
       return {
         history: [...state.history, state.tasks],
         tasks: [
@@ -15,7 +15,7 @@ function tasksReducer(state, action) {
           { id: Date.now(), title: action.title, completed: false },
         ],
       };
-    case "toggle_task_completion":
+    case "toggle_completion":
       return {
         history: [...state.history, state.tasks],
         tasks: state.tasks.map((task) =>
@@ -24,12 +24,12 @@ function tasksReducer(state, action) {
             : task,
         ),
       };
-    case "delete_task":
+    case "delete":
       return {
         history: [...state.history, state.tasks],
         tasks: state.tasks.filter((task) => task.id !== action.id),
       };
-    case "undo_task":
+    case "undo":
       if (state.history.length === 0) return state;
       return {
         history: state.history.slice(0, -1),
@@ -50,35 +50,35 @@ function AppContent() {
 
   const [state, dispatch] = useReducer(tasksReducer, initialState);
 
-  function handleThemeToggle() {
+  function handleToggleTheme() {
     setIsDark(!isDark);
   }
 
-  function handleAdd(title) {
+  function handleAddTask(title) {
     dispatch({
-      type: "add_task",
+      type: "add",
       id: Date.now(),
       title: title,
       completed: false,
     });
   }
 
-  function handleToggle(taskId) {
+  function handleToggleTaskCompletion(id) {
     dispatch({
-      type: "toggle_task_completion",
-      id: taskId,
+      type: "toggle_completion",
+      id: id,
     });
   }
 
-  function handleDelete(taskId) {
+  function handleDeleteTask(id) {
     dispatch({
-      type: "delete_task",
-      id: taskId,
+      type: "delete",
+      id: id,
     });
   }
 
   function handleUndo() {
-    dispatch({ type: "undo_task" });
+    dispatch({ type: "undo" });
   }
 
   return (
@@ -89,18 +89,18 @@ function AppContent() {
         color: isDark ? "#FFFFFF" : "#333333",
       }}
     >
-      <button onClick={() => handleThemeToggle()}>Theme</button>
+      <button onClick={() => handleToggleTheme()}>Theme</button>
       <h1>Tasks</h1>
       {state.tasks.length > 0 ? (
         <TaskList
           tasks={state.tasks}
-          onToggleComplete={handleToggle}
-          onTaskDelete={handleDelete}
+          onToggleCompletion={handleToggleTaskCompletion}
+          onDelete={handleDeleteTask}
         />
       ) : (
         <p>No tasks yet.</p>
       )}
-      <TaskForm onTaskAdd={handleAdd} />
+      <TaskForm onAdd={handleAddTask} />
       <button
         onClick={() => handleUndo()}
         disabled={state.history.length === 0}

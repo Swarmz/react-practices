@@ -1,17 +1,36 @@
-import { useState, useContext } from "react";
+import { useContext, useReducer } from "react";
 import { ThemeContext } from "./ThemeContext";
 
+function titleReducer(state, action) {
+  switch (action.type) {
+    case "set_title": {
+      return {
+        ...state,
+        title: action.title,
+      };
+    }
+    default: {
+      throw Error("Unknown action: " + action.type);
+    }
+  }
+}
+
 export default function TaskForm({ onTaskAdd }) {
-  const [title, setTitle] = useState("");
+  const [task, dispatch] = useReducer(titleReducer, []);
 
   const { isDark } = useContext(ThemeContext);
+
+  function handleSetTitle(title) {
+    dispatch({
+      type: "set_title",
+      title: title,
+    });
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
 
-    onTaskAdd(title);
-
-    setTitle("");
+    onTaskAdd(task.title);
   }
 
   return (
@@ -26,8 +45,8 @@ export default function TaskForm({ onTaskAdd }) {
       <label>
         Task Name:
         <input
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
+          value={task.title}
+          onChange={(event) => handleSetTitle(event.target.value)}
           name="title"
           required
           pattern=".*\S.*"

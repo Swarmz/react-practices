@@ -31,6 +31,8 @@ export default function TaskForm({ onAdd }) {
     event.preventDefault();
 
     onAdd(task.title);
+
+    handleSetTitle('');
   }
 
   return (

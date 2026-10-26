@@ -16,7 +16,7 @@ function titleReducer(state, action) {
 }
 
 export default function TaskForm({ onAdd }) {
-  const [task, dispatch] = useReducer(titleReducer, []);
+  const [task, dispatch] = useReducer(titleReducer, { title: "" });
 
   const { isDark } = useContext(ThemeContext);
 
@@ -32,7 +32,7 @@ export default function TaskForm({ onAdd }) {
 
     onAdd(task.title);
 
-    handleSetTitle('');
+    handleSetTitle("");
   }
 
   return (
